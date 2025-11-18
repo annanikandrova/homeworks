@@ -1,0 +1,7 @@
+sample_id,cell_type,treatment,replicate,concentration_uM,total_proteins,unique_peptides,contamination_level
+Sample_1,HEK293,Control,1,0,2450.0,15200.0,0.02
+Sample_2,HeLa,Drug_A,1,10,2310.0,14800.0,0.05
+Sample_3,HEK293,Drug_B,1,50,2540.0,15600.0,0.03
+Sample_4,U2OS,Control,2,0,2480.0,15400.0,0.01
+Sample_5,HeLa,Drug_A,2,10,,,
+Sample_6,Primary,Drug_C,1,100,,,
