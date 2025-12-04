@@ -1,0 +1,2 @@
+SyntaxError in file /home/jupyter-nikandrovaav/programming/Snakemake/Snakefile, line 7:
+Command must be given as string after the shell keyword. (Snakefile, line 7)

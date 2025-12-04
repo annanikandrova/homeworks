@@ -1,0 +1,39 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 1 (use --cores to define parallelism)
+Rules claiming more threads will be scaled down.
+Singularity containers: ignored
+Job stats:
+job          count
+---------  -------
+all              1
+anti_join        1
+total            2
+
+Select jobs to execute...
+
+[Thu Dec  4 08:41:38 2025]
+rule anti_join:
+    input: input/mass_spec_results.csv, input/sample_metadata.csv
+    output: output/anti1.csv, output/anti2.csv, output/anti3.csv
+    jobid: 1
+    reason: Missing output files: output/anti3.csv, output/anti2.csv, output/anti1.csv
+    resources: tmpdir=/tmp
+
+[Thu Dec  4 08:41:38 2025]
+Error in rule anti_join:
+    jobid: 1
+    input: input/mass_spec_results.csv, input/sample_metadata.csv
+    output: output/anti1.csv, output/anti2.csv, output/anti3.csv
+    shell:
+        
+        mkdir -p output
+        echo "выполнение антиджоинов."
+        python scripts/anti_join.py input/mass_spec_results.csv input/sample_metadata.csv output/anti1.csv output/anti2.csv output/anti3.csv
+        echo "антиджоины выполнены, результаты в папке output/"
+        
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: .snakemake/log/2025-12-04T084137.789208.snakemake.log

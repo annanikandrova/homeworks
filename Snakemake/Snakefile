@@ -1,0 +1,49 @@
+rule all:
+    input:
+        "output/anti1.csv",
+        "output/anti2.csv",
+        "output/anti3.csv"
+
+rule download:
+    output:
+        "input/mass_spec_results.csv",
+        "input/sample_metadata.csv"
+    container: "docker://mass_spec:latest" 
+    shell: 
+        """
+        mkdir -p input
+        wget -q -O input/mass_spec_results.csv "https://storage.yandexcloud.net/students-common/mass_spec_results.csv?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=YCAJELqVUR2I4aFR9yju0lZmQ%2F20251129%2Fru-central1%2Fs3%2Faws4_request&X-Amz-Date=20251129T075802Z&X-Amz-Expires=2592000&X-Amz-Signature=8696243c988ba07aaf3b8c3bbf6ef9eedaff7c5d6e4364aea6087493c19e3e39&X-Amz-SignedHeaders=host&response-content-disposition=attachment"
+        wget -q -O input/sample_metadata.csv "https://storage.yandexcloud.net/students-common/sample_metadata.csv?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=YCAJELqVUR2I4aFR9yju0lZmQ%2F20251129%2Fru-central1%2Fs3%2Faws4_request&X-Amz-Date=20251129T075822Z&X-Amz-Expires=2592000&X-Amz-Signature=10e1273d1fcbd5cba59ca00125eb26a4406c14a0ce39c97bcdd5a266493e8015&X-Amz-SignedHeaders=host&response-content-disposition=attachment"
+    """
+rule anti_join:
+    input:
+        mass_spec = "input/mass_spec_results.csv",
+        metadata = "input/sample_metadata.csv"
+    output:
+        anti1 = "output/anti1.csv",  # Добавлено имя
+        anti2 = "output/anti2.csv",  # Добавлено имя
+        anti3 = "output/anti3.csv"   # Добавлено имя
+    container: "docker://mass_spec:latest" 
+    shell: 
+        """
+        mkdir -p output
+        echo "выполнение антиджоинов."
+        python scripts/anti_join.py {input.mass_spec} {input.metadata} {output.anti1} {output.anti2} {output.anti3}
+        echo "антиджоины выполнены, результаты в папке output/"
+        """
+rule generate_graphs:
+    input:
+        "output/anti1.csv",
+        "output/anti2.csv",
+        "output/anti3.csv"
+    output:
+        "output/rulegraph.png",
+        "output/filegraph.png"
+    container: "docker://mass_spec:latest"
+    shell:
+        """
+        echo "визуализации графов"
+        snakemake --rulegraph | dot -Tpng > output/rulegraph.png
+        snakemake --filegraph | dot -Tpng > output/filegraph.png
+        echo "Графы сохранены в output/rulegraph.png и output/filegraph.png"
+        """

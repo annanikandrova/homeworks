@@ -1,0 +1,2 @@
+sample_id,total_proteins,unique_peptides,contamination_level,cell_type,treatment,replicate,concentration_uM
+Sample_7,2600,16200,0.04,,,,

@@ -1,0 +1,43 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 1 (use --cores to define parallelism)
+Rules claiming more threads will be scaled down.
+Singularity containers: ignored
+Job stats:
+job          count
+---------  -------
+all              1
+anti_join        1
+download         1
+total            3
+
+Select jobs to execute...
+
+[Thu Dec  4 08:39:53 2025]
+rule download:
+    output: input/mass_spec_results.csv, input/sample_metadata.csv
+    jobid: 2
+    reason: Missing output files: input/sample_metadata.csv, input/mass_spec_results.csv
+    resources: tmpdir=/tmp
+
+[Thu Dec  4 08:39:53 2025]
+Finished job 2.
+1 of 3 steps (33%) done
+Select jobs to execute...
+
+[Thu Dec  4 08:39:53 2025]
+rule anti_join:
+    input: input/mass_spec_results.csv, input/sample_metadata.csv
+    output: output/anti1.csv, output/anti2.csv, output/anti3.csv
+    jobid: 1
+    reason: Missing output files: output/anti1.csv, output/anti3.csv, output/anti2.csv; Input files updated by another job: input/sample_metadata.csv, input/mass_spec_results.csv
+    resources: tmpdir=/tmp
+
+RuleException in rule anti_join in file /home/jupyter-nikandrovaav/programming/Snakemake/Snakefile, line 18:
+AttributeError: 'OutputFiles' object has no attribute 'anti1', when formatting the following:
+
+        mkdir -p output
+        echo "выполнение антиджоинов."
+        python scripts/anti_join.py {input.mass_spec} {input.metadata} {output.anti1} {output.anti2} {output.anti3}
+        echo "антиджоины выполнены, результаты в папке output/"
+        

@@ -1,0 +1,2 @@
+SyntaxError in file /home/jupyter-nikandrovaav/programming/Snakemake/Snakefile, line 17:
+EOF in multi-line string (Snakefile, line 17)

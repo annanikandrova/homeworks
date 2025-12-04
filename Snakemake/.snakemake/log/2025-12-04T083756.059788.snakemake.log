@@ -1,0 +1,39 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 1 (use --cores to define parallelism)
+Rules claiming more threads will be scaled down.
+Singularity containers: ignored
+Job stats:
+job          count
+---------  -------
+all              1
+anti_join        1
+download         1
+total            3
+
+Select jobs to execute...
+
+[Thu Dec  4 08:37:56 2025]
+rule download:
+    output: input/mass_spec_results.csv, input/sample_metadata.csv
+    jobid: 2
+    reason: Missing output files: input/sample_metadata.csv, input/mass_spec_results.csv
+    resources: tmpdir=/tmp
+
+[Thu Dec  4 08:37:56 2025]
+Error in rule download:
+    jobid: 2
+    output: input/mass_spec_results.csv, input/sample_metadata.csv
+    shell:
+        
+        mkdir -p input
+        wget -q -O input/mass_spec_results.csv "https://storage.yandexcloud.net/students-common/mass_spec_results.csv?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=YCAJELqVUR2I4aFR9yju0lZmQ%2F20251129%2Fru-central1%2Fs3%2Faws4_request&X-Amz-Date=20251129T075802Z&X-Amz-Expires=2592000&X-Amz-Signature=8696243c988ba07aaf3b8c3bbf6ef9eedaff7c5d6e4364aea6087493c19e3e39&X-Amz-SignedHeaders=host&response-content-disposition=attachment"
+        wget -q -O input/sample_metadata.csv "https://storage.yandexcloud.net/students-common/sample_metadata. csv?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credentia l=YCAJELqVUR214aFR9yju®1ZmQ%2F20251129%2Fru-central1%2Fs3%2Faws4_request&X-Amz-Date=20251129T075822Z&X-Amz-Expires=2592000&X-Amz-Signature=10e1273d1fcbd5cba59ca00125eb26a4406c14a0ce39c97bcdd5a266493e8015&X-Amz-SignedHeaders=host&response-content-disposition=attachment"
+    
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+Removing output files of failed job download since they might be corrupted:
+input/mass_spec_results.csv, input/sample_metadata.csv
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: .snakemake/log/2025-12-04T083756.059788.snakemake.log
